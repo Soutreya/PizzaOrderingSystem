@@ -19,4 +19,28 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::resource()
+Route::get('/admin', 'AdminController@index');
+
+Route::get('/orders', 'AdminController@orders');
+
+Route::get('/pizzas', function(){
+    return view('admin/orders/pizzas/index');
+});
+
+Route::get('/search', function(){
+    return view('admin/orders/pizzas/search');
+});
+
+Route::get('/admin/customers', function(){
+    return view('admin/customers/index');
+});
+
+Route::get('/admin/customers/create', function(){
+    return view('admin.customers.create');
+});
+
+Route::post('/admin/customers/create', 'AdminController@createCustomer');
+
+Route::get('/admin/customers/edit', function(){
+    return view('admin/customers/edit');
+});
