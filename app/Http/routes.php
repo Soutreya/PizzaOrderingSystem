@@ -19,28 +19,46 @@ Route::auth();
 
 Route::get('/home', 'HomeController@index');
 
-Route::get('/admin', 'AdminController@index');
+Route::get('/admin', function(){
+    return view('admin/index');
+})->middleware('isAdmin');
 
-Route::get('/orders', 'AdminController@orders');
+Route::get('/admin/customers', 'AdminController@customers')->middleware('isAdmin');
 
-Route::get('/pizzas', function(){
-    return view('admin/orders/pizzas/index');
-});
+Route::get('/admin/pizzas/create', function(){
+    return view('admin/pizzas/create');
+})->middleware('isAdmin');
+
+Route::post('/admin/pizzas/create', 'AdminController@createPizza')->middleware('isAdmin');
+
+Route::get('/pizzas', 'AdminController@pizzas');
+
+Route::get('/browse', 'AdminController@browse');
+
+Route::post('/browse/{p_id}', 'AdminController@createOrder')->name('browse');
 
 Route::get('/search', function(){
-    return view('admin/orders/pizzas/search');
+    return view('admin/pizzas/search');
 });
 
-Route::get('/admin/customers', function(){
-    return view('admin/customers/index');
+Route::get('/customers', function(){
+    return view('customers/index');
 });
 
-Route::get('/admin/customers/create', function(){
-    return view('admin.customers.create');
+Route::get('/customers/create', function(){
+    return view('/customers/create');
 });
 
-Route::post('/admin/customers/create', 'AdminController@createCustomer');
+Route::post('/customers/create', 'AdminController@createCustomer');
 
-Route::get('/admin/customers/edit', function(){
-    return view('admin/customers/edit');
+Route::get('/customers/login', function(){
+    return view('customers/login');
+});
+
+Route::get('/customers/order', function(){
+    return view('/customers/order/index');
+});
+
+Route::get('/customers/latest_order', function(){
+    return view('customers/order/status');
 });

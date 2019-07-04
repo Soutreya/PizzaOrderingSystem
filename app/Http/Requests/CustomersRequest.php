@@ -17,7 +17,7 @@ class CustomersRequest extends Request
             'c_name'=>'required',
             'email'=>'required',
             'phone'=>'required',
-            'password'=>'required'
+            'password'=>'required',
         ];
     }
 }
