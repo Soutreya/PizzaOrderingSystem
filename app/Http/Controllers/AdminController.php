@@ -42,17 +42,35 @@ class AdminController extends Controller
         $pizzas=Pizzas::all();
         return view('admin/pizzas/browse', compact('pizzas'));
     }
-    public function createOrder(Request $request, $p_id)
+    public function createOrder(Request $request)
     {
         $customer=Auth::User();
-        $cost=($request->qty)*(Pizzas::find($p_id)->mrp);
-        Orders::create(['id'=>$customer->id, 'name'=>$customer->name, 'p_id'=>$p_id, 'qty'=>$request->qty, 'cost'=>$cost]);
-        return redirect()->route('latest_order', [$cost]);
+        $pizzas=Pizzas::all();
+        $input=$request->all();
+        $tot_cost=0;
+        foreach($pizzas as $pizza)
+        {
+            if($input[$pizza->p_id]!=='')
+            {
+                $qty=$input[$pizza->p_id];
+                $cost=($qty)*(Pizzas::find($pizza->p_id)->mrp);
+                $tot_cost=$tot_cost+$cost;
+                Orders::create(['id'=>$customer->id, 'name'=>$customer->name, 'p_id'=>$pizza->p_id, 'qty'=>$qty, 'cost'=>$cost]);
+            }
+        }
+        return redirect()->route('latest_order', [$tot_cost]);
     }
     public function orders()
     {
         $orders=Orders::all();
         $pizzas=Pizzas::all();
         return view('admin/orders', compact('orders', 'pizzas'));
+    }
+    public function history()
+    {
+        $user=Auth::User();
+        $orders=Orders::all();
+        $pizzas=Pizzas::all();
+        return view('customers/history', compact('orders', 'user', 'pizzas'));
     }
 }

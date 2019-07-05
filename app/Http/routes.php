@@ -39,7 +39,7 @@ Route::get('/pizzas', 'AdminController@pizzas');
 
 Route::get('/browse', 'AdminController@browse');
 
-Route::post('/browse/{p_id}', 'AdminController@createOrder')->name('browse');
+Route::post('/browse', 'AdminController@createOrder')->name('browse');
 
 Route::get('/search', function(){
     return view('admin/pizzas/search');
@@ -66,3 +66,5 @@ Route::get('/customers/order', function(){
 Route::get('/customers/latest_order/{cost}', function($cost){
     return view('customers/order/status', compact('cost'));
 })->name('latest_order')->middleware('isCustomer');
+
+Route::get('/customers/history', 'AdminController@history')->middleware('isCustomer');
