@@ -57,7 +57,6 @@ Route::any('/search_results', function(){
     else
     {
         return 'No details found.';
-//        return view('/admin/pizzas/search_results')->withMessage('No details found.');
     }
 });
 

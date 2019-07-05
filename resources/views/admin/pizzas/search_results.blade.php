@@ -1,3 +1,5 @@
+<a href="/"><button>HOME</button></a>
+<br>
 <h1>Search results</h1>
 <table class="table table-striped">
     <thead>
