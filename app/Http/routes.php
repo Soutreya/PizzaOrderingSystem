@@ -11,7 +11,9 @@
 |
 */
 
+use App\Pizzas;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
 
 Route::get('/', function () {
     return view('welcome');
@@ -43,6 +45,19 @@ Route::post('/browse', 'AdminController@createOrder')->name('browse');
 
 Route::get('/search', function(){
     return view('admin/pizzas/search');
+});
+
+Route::any('/search_results', function(){
+    $q=Input::get ('q');
+    $pizza=Pizzas::where('p_name','LIKE','%'.$q.'%')->orWhere('crust','LIKE','%'.$q.'%')->orWhere('cheese','LIKE','%'.$q.'%')->get();
+    if(count($pizza)>0)
+    {
+        return view('/admin/pizzas/search_results')->withDetails($pizza)->withQuery($q);
+    }
+    else
+    {
+        return view('/admin/pizzas/search_results')->withMessage('No details found.');
+    }
 });
 
 Route::get('/customers', function(){
