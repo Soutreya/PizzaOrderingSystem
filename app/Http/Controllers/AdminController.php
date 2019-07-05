@@ -53,7 +53,10 @@ class AdminController extends Controller
             if($input[$pizza->p_id]!=='')
             {
                 $qty=$input[$pizza->p_id];
-                $cost=($qty)*(Pizzas::find($pizza->p_id)->mrp);
+                $pizza=Pizzas::find($pizza->p_id);
+                $pizza->qty_avail=($pizza->qty_avail)-($qty);
+                $pizza->save();
+                $cost=($qty)*($pizza->mrp);
                 $tot_cost=$tot_cost+$cost;
                 Orders::create(['id'=>$customer->id, 'name'=>$customer->name, 'p_id'=>$pizza->p_id, 'qty'=>$qty, 'cost'=>$cost]);
             }
