@@ -11,6 +11,8 @@
 |
 */
 
+use Illuminate\Support\Facades\Auth;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -31,6 +33,8 @@ Route::get('/admin/pizzas/create', function(){
 
 Route::post('/admin/pizzas/create', 'AdminController@createPizza')->middleware('isAdmin');
 
+Route::get('/admin/orders', 'AdminController@orders')->middleware('isAdmin');
+
 Route::get('/pizzas', 'AdminController@pizzas');
 
 Route::get('/browse', 'AdminController@browse');
@@ -43,22 +47,22 @@ Route::get('/search', function(){
 
 Route::get('/customers', function(){
     return view('customers/index');
-});
+})->middleware('isCustomer');
 
 Route::get('/customers/create', function(){
     return view('/customers/create');
-});
+})->middleware('isCustomer');
 
-Route::post('/customers/create', 'AdminController@createCustomer');
+Route::post('/customers/create', 'AdminController@createCustomer')->middleware('isCustomer');
 
 Route::get('/customers/login', function(){
     return view('customers/login');
-});
+})->middleware('isCustomer');
 
 Route::get('/customers/order', function(){
     return view('/customers/order/index');
-});
+})->middleware('isCustomer');
 
-Route::get('/customers/latest_order', function(){
-    return view('customers/order/status');
-});
+Route::get('/customers/latest_order/{cost}', function($cost){
+    return view('customers/order/status', compact('cost'));
+})->name('latest_order')->middleware('isCustomer');

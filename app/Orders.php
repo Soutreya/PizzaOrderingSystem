@@ -8,6 +8,6 @@ class Orders extends Model
 {
     //
     protected $fillable = [
-        'b_id', 'p_id', 'qty', 'cost',
+        'b_id', 'id', 'name', 'p_id', 'qty', 'cost',
     ];
 }

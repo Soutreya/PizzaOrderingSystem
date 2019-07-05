@@ -1,3 +1,5 @@
+<a href="/"><button>HOME</button></a>
+<br>
 <h1>Pizzas</h1>
 <table class="table">
     <thread>
@@ -22,8 +24,6 @@
                 <td>{{$pizza->cheese}}</td>
                 <td>{{$pizza->mrp}}</td>
                 <td>{{$pizza->qty_avail}}</td>
-                <td>{{$pizza->created_at->diffForHumans()}}</td>
-                <td>{{$pizza->updated_at->diffForHumans()}}</td>
             </tr>
         @endforeach
     @endif

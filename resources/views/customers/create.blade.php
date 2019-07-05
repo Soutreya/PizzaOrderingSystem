@@ -1,3 +1,5 @@
+<a href="/"><button>HOME</button></a>
+<br>
 <h1>Create Customer</h1>
 {!! Form::open(['method'=>'POST', 'action'=>'AdminController@createCustomer']) !!}
 <div class="form-group">

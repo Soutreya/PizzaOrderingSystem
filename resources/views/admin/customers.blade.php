@@ -1,3 +1,5 @@
+<a href="/"><button>HOME</button></a>
+<br>
 <h1>Customers</h1>
 <table class="table">
     <thread>
@@ -5,7 +7,6 @@
             <th>ID</th>
             <th>Name</th>
             <th>Email</th>
-            <th>Phone</th>
             <th>Created</th>
             <th>Updated</th>
         </tr>
@@ -13,16 +14,17 @@
     <tbody>
     @if($customers)
         @foreach($customers as $customer)
+            @if($customer->role==0)
             <tr>
-                <td>{{$customer->c_id}}</td>
-                <td>{{$customer->c_name}}</td>
+                <td>{{$customer->id}}</td>
+                <td>{{$customer->name}}</td>
                 <td>{{$customer->email}}</td>
-                <td>{{$customer->phone}}</td>
                 <td>{{$customer->created_at->diffForHumans()}}</td>
                 <td>{{$customer->updated_at->diffForHumans()}}</td>
-                <td><a href="/admin/customers/edit"><button>Edit</button></a></td>
             </tr>
+            @endif
         @endforeach
     @endif
     </tbody>
 </table>
+<a href="/admin"><button>Back</button></a>

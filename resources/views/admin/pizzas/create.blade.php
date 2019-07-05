@@ -1,3 +1,5 @@
+<a href="/"><button>HOME</button></a>
+<br>
 <h1>Create Pizza</h1>
 {!! Form::open(['method'=>'POST', 'action'=>'AdminController@createPizza']) !!}
 <div class="form-group">
@@ -28,3 +30,4 @@
     {!! Form::submit('Create Pizza', ['class'=>'btn btn-primary']) !!}
 </div>
 {!! Form::close() !!}
+<a href="/admin"><button>Back</button></a>
